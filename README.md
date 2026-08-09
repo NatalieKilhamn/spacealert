@@ -5,8 +5,8 @@ The Space Alert board game (http://czechgames.com/en/space-alert/) includes a CD
 ## Features:
 - Random mission generator. The original CD only contains eight missions. This program can randomly generate missions that are equally good as those on the CD.
 - Based on HTML5 rather than e.g. Flash.
-- Supports mixed mission difficulties (e.g. white-yellow), see below.
-- Supports missions for double action cards (for the expansion).
+- All the scripted missions from the game: the eight regular missions, the training runs and simulations, and the double action missions from The New Frontier (12 regular and 6 easier).
+- Supports missions for double action cards (for the expansion), both scripted and generated.
 
 ![Main menu](/menu.png?raw=true)
 
@@ -30,9 +30,12 @@ and use the webpage to start either a randomly generated mission or a scripted m
 3. To stop the server simply use Ctrl+C or the "Exit" button at the bottom of the main menu.
 
 
-## Mission Difficulties
+## Threat Card Difficulties
 
-The game comes with threat cards in three difficulties: white, yellow, and (in the expansion) red. The rule book suggests that mixed difficulties can be obtained by shuffling e.g. the white and yellow threat cards together. However, this naturally comes with a high variance: Some missions might have almost only white threats while others could be as hard as a pure yellow mission. This program on the other hand will make sure that always half of the threats will be of each difficulty. To make this possible, your communications officer must have separate piles with (in our example) white and yellow threats. The program will tell him from which pile to draw a new threat.
+This player does not announce the colour of the threat card to draw. It assumes
+you prepare your threat decks during setup — mixing colours as you like for
+intermediate difficulty — and then simply draw from the top. Announcements name
+the turn, the severity and the zone, e.g. "Time T+5, Serious Threat, Zone Blue".
 
 
 ## Attributions
@@ -43,5 +46,9 @@ While this software is published under the GPL, this does not include the sound 
 
 This program was inspired by the Flash-based player at
 http://www.phipsisoftware.com/SpaceAlert.htm
+
+The double action mission scripts were transcribed from
+https://github.com/nibuen/SpaceAlertMissionGenerator (MIT licensed), file
+`ConstructedMissions.java`.
 
 ![Player screenshot](/alert.png?raw=true)

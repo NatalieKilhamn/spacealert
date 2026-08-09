@@ -241,12 +241,11 @@ function AudioManager() {
 // Events //
 //========//
 
-function Alert(start, turn, serious, zone, difficulty) {
+function Alert(start, turn, serious, zone) {
     this.start = start;
     this.turn = turn;
     this.serious = serious;
     this.zone = zone;
-    this.difficulty = difficulty;
     this.end = start + 15;
     this.text =  serious ? "Serious Threat" : "Threat";
     this.widgetType = AlertWidget;
@@ -268,7 +267,6 @@ function Alert(start, turn, serious, zone, difficulty) {
     
     this.message = timeString(start) + " - ";
     this.message += "Time T+" + turn.toString() + " ";
-    this.message += capitalize(difficulty) + " ";
     if (serious)
         this.message += "Serious ";
     if (zone == "internal")
@@ -471,7 +469,10 @@ AlertWidget.init = function(event) {
      this.frameCount = 6;
      this.rect = new Rectangle(animator.center.x-260, animator.center.y-60, 520, 120);
      this.alert = event;
-     this.alertImage = this.getImage((this.alert.serious ? "serious_" : "") + "alert_" + this.alert.difficulty + ".png");
+     // Threat colour is not announced (players draw from pre-mixed decks), so the
+     // white artwork is used for every threat; the symbol still distinguishes
+     // normal (X) from serious (!!!).
+     this.alertImage = this.getImage((this.alert.serious ? "serious_" : "") + "alert_white.png");
      this.zonesImage = this.getImage("zones_"+this.alert.zone+".png");
      this.turnImage = this.getImage("turn.png");
 }

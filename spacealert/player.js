@@ -446,19 +446,38 @@ Radar.draw = function() {
 }
 
 var Label = Object.create(Widget);
+Label.font = "40pt Sans-serif";
+Label.baseline = 40;   // of the text within the label's rectangle
+// Capital letters fit inside a label's own rectangle, but descenders (the 'g'
+// of "Incoming Data") hang below it. That overhang has to be cleared too, or
+// its tail is left on screen when the text changes -- and since the labels are
+// stacked closer together than the font is tall, the overhang reaches into the
+// label beneath. So the stack is cleared and redrawn as a unit.
+Label.descent = 16;
+
 Label.init = function(rect) {
     this.text = '';
     this.rect = rect;
 }
 
+Label.stack = function() {
+    var labels = [widgets.phaseLabel, widgets.timeLabel, widgets.textLabel]
+                    .filter(function(label) { return label; });
+    return labels.indexOf(this) >= 0 ? labels : [this];
+}
+
 Label.draw = function() {
+    var labels = Label.stack.call(this);
+    var first = labels[0].rect, last = labels[labels.length-1].rect;
     ctx.save();
-    ctx.clearRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
-    ctx.translate(this.rect.x + this.rect.width/2, this.rect.y + 40);
-    ctx.font = "40pt Sans-serif";
+    ctx.clearRect(first.x, first.y, first.width,
+                  last.y + last.height + Label.descent - first.y);
+    ctx.font = Label.font;
     ctx.textAlign = "center";
     ctx.fillStyle = "blue";
-    ctx.fillText(this.text, 0, 0);
+    for (var i = 0; i < labels.length; i++)
+        ctx.fillText(labels[i].text, labels[i].rect.x + labels[i].rect.width/2,
+                     labels[i].rect.y + Label.baseline);
     ctx.restore();
 }
 

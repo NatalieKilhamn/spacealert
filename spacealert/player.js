@@ -83,6 +83,21 @@ function MissionAnimator(events) {
         document.getElementById("textarea").value = this.getScript();
     }
     
+    // The phase depends only on the clock, not on which event happens to be
+    // playing: skipping over a phase-end event with the Previous/Next buttons
+    // must still leave the phase indicator correct.
+    this.phaseAt = function(time) {
+        var phase = 1;
+        for (var i=0; i < this.events.length; i++) {
+            var event = this.events[i];
+            // A phase ends 7 seconds into its final announcement.
+            if (event instanceof PhaseEvent && event.remaining == 7
+                    && !event.lastPhase && time >= event.start + 7)
+                phase = Math.max(phase, event.phase + 1);
+        }
+        return phase;
+    }
+
     this.clear = function() {
         widgets.textLabel.setText('');
         this.currentEvent = null;
@@ -116,8 +131,7 @@ function MissionAnimator(events) {
         }
         if (this.currentWidget && this.currentWidget.drawEachSecond)
             this.currentWidget.draw();
-        if (this.currentEvent instanceof PhaseEvent || this.currentEvent instanceof StartEvent)
-            widgets.phaseLabel.setText("Phase "+this.currentEvent.getPhaseAt(this.seconds).toString());
+        widgets.phaseLabel.setText("Phase "+this.phaseAt(this.seconds).toString());
     }
     
     this.next = function() {
@@ -247,7 +261,7 @@ function Alert(start, turn, serious, zone) {
     this.serious = serious;
     this.zone = zone;
     this.end = start + 15;
-    this.text =  serious ? "Serious Threat" : "Threat";
+    this.text = (serious ? "Serious " : "") + (zone == "internal" ? "Internal " : "") + "Threat";
     this.widgetType = AlertWidget;
     
     // Choose necessary audio tracks
@@ -312,10 +326,6 @@ function StartEvent() {
     this.tracks = ["begin"];
     this.widgetType = PhaseEventWidget;
     this.message = null;
-    
-    this.getPhaseAt = function(time) {
-        return 1;
-    };
 }
 
 function PhaseEvent(start, phase, remaining, lastPhase) {
@@ -336,10 +346,6 @@ function PhaseEvent(start, phase, remaining, lastPhase) {
     this.end = start + length;
     this.widgetType = PhaseEventWidget;
     this.tracks = ["phase"+phase.toString()+"_"+remaining.toString()];
-    
-    this.getPhaseAt = function(time) {
-        return this.remaining == 7 && time >= this.start+7 ? this.phase+1 : this.phase;
-    };
     
     if (remaining == 7)
         this.message = timeString(start+7) + " - Phase "+phase.toString()+" ends";

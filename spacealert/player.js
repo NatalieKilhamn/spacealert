@@ -165,25 +165,18 @@ function MissionAnimator(events) {
     this.stop = function() {
         this.pause();
         this.clear();
+        // Refresh the transcript so it is complete on the end screen.
+        document.getElementById("textarea").value = this.getScript();
         this.audioManager.stop();
         document.getElementById("canvas").hidden = true;
         document.getElementById("menu").hidden = true;
         document.getElementById("endmenu").hidden = false;
     }
     
-    this.replay = function() {
-        this.pause();
-        this.clear();
-        document.getElementById("endmenu").hidden = true;
-        document.getElementById("script").hidden = true;
-        document.getElementById("canvas").hidden = false;
-        document.getElementById("menu").hidden = false;
-        this.seconds = -1;
-        this.play();
-    }
-    
     this.getScript = function() {
-        var script = '';
+        // Head the transcript with the mission, so a randomly chosen one can be
+        // identified afterwards.
+        var script = typeof missionName !== 'undefined' && missionName ? missionName + "\n\n" : '';
         for (var i=0; i<animator.events.length; i++) {
             var event = animator.events[i];
             if (event.start <= this.seconds && event.message != null)

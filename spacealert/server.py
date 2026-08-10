@@ -36,8 +36,10 @@ def _numbered(prefix, count, label):
 # mode -- those types offer only the scripted missions from the game.
 MISSION_TYPES = [
     {'key': 'regular', 'label': 'Regular mission', 'generate': 'normal',
+     'generatedLabel': 'Newly generated mission',
      'scripts': _numbered('mission', 8, 'Mission')},
     {'key': 'doubleAction', 'label': 'Double action', 'generate': 'double',
+     'generatedLabel': 'Newly generated double action mission',
      'scripts': _numbered('doubleAction', 12, 'Double action mission')},
     {'key': 'doubleActionEasy', 'label': 'Double action (easier)', 'generate': None,
      'scripts': _numbered('doubleActionEasy', 6, 'Easier double action mission')},
@@ -208,20 +210,28 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 print(e)
                 self.send_error(500, "Mission could not be generated")
                 return
+            missionName = typeInfo['generatedLabel']
         else:
             name = params['mission']
             if name == 'random':
                 import random
                 name = random.choice([n for n, label in typeInfo['scripts']])
             mission = loadScript(name, params['players'])
+            # Name the mission that was actually drawn, so a randomly chosen one
+            # can be identified from the transcript.
+            missionName = dict(typeInfo['scripts']).get(name, name)
+            if params['mission'] == 'random':
+                missionName += ' (randomly chosen)'
+        missionName = '{}, {} players'.format(missionName, params['players'])
 
         javaScript = map(getJavaScript, mission.events)
         content = ',\n'.join(s for s in javaScript if len(s) > 0)
-            
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
         self.wfile.write(htmlParts['header'])
+        self.wfile.write('var missionName = {};\n\n'.format(json.dumps(missionName)).encode('utf-8'))
         self.wfile.write(b"var events = [\n");
         self.wfile.write(content.encode('utf-8'))
         self.wfile.write(b"\n];\n\n");

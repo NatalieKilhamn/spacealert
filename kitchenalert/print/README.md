@@ -4,11 +4,13 @@
   Print at 100 %, or at 71 % on A4 with smaller markers.
 - `order-cards-1.pdf`, `order-cards-2.pdf`: the 18 order cards in English, 59 x 94 mm, nine per A4.
   `orderkort-1.pdf` and `orderkort-2.pdf` are the same cards in Swedish. Print at 100 %.
+- `special-cards.pdf` (`specialkort.pdf` in Swedish): the special cards coffee, mise en place and
+  bread basket, and six blank cards for your own orders.
 
 The SVG files can be edited by hand. They are drawn by the scripts here:
 
     python3 make_board.py    # board.svg
-    python3 make_cards.py    # order-cards-1/2.svg and orderkort-1/2.svg
+    python3 make_cards.py    # order cards and special cards in both languages
 
 The PDF and PNG files are exported with Inkscape, for example
 `inkscape board.svg --export-type=pdf --export-filename=board.pdf`.

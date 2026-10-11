@@ -2,25 +2,27 @@
 
 *Speltestversion 2026-10-11*
 
+[English version](rules.md)
+
 Kitchen Alert är ett samarbetsspel byggt på Space Alert. Fyra spelare, eller fem, driver en restaurang under en service. Som i Space Alert planerar ni i realtid till ett ljudspår och spelar sedan upp planen runda för runda. I stället för hot kommer det in ordrar, och i stället för skada får ni stress.
 
 Reglerna förutsätter att ni kan Space Alert. Det som fungerar likadant står bara kort.
 
 ## Material
 
-- Spelplanen: [`print/spelplan.pdf`](print/spelplan.pdf), A3.
+- Spelplanen: [`print/board.pdf`](print/board.pdf), A3.
 - Orderkort: 12 vanliga och 6 stora, [`print/orderkort-1.pdf`](print/orderkort-1.pdf) och [`print/orderkort-2.pdf`](print/orderkort-2.pdf). Klipp ut dem och lägg dem i plastfickor framför Space Alerts hotkort.
 - Handlingskort, spelartavlor och figurer från Space Alert (se [Kortleken](#kortleken)).
 - Markörer för varje runda 1–8: 1 gästmarkör, 1 huvudmarkör och 3 fokusmarkörer, numrerade med rundan och med disk på baksidan. Planen är ritad för runda markörer på ungefär 20 mm.
 - 8 lösa diskbrickor.
 - Prepkuber (runt 20) och stresskuber i en annan färg (runt 20).
-- Några lugnmarkörer.
+- Tålamodsmarkörer, runt 10.
 - 3 överskottsplatser per spelare, till exempel tre rutor på en lapp bredvid tavlan.
 - Servicespelaren (se [Servicespelaren](#servicespelaren)) eller en utskriven service.
 
 ## Spelplanen
 
-![Spelplanen](print/spelplan.png)
+![Spelplanen](print/board.png)
 
 Planen har fyra rum. Matsalarna ligger i norr och köken i söder. Röda sidan är till vänster och blåa sidan till höger, som zonerna i Space Alert:
 
@@ -37,7 +39,7 @@ Planen har inga ord. Så här läses den:
 - **Diskplatser:** dubbla ringar rymmer bara disk. Diskmaskinen i Kalla köket har två staplar. Diskhon i Varma köket och vasken i varje matsal har en stapel.
 - **Droppe:** här kan man diska. Står det 1 vid droppen diskas 1 disk per CLEAN, annars allt.
 - **Spisen** i varje kök har två banor, en per platta. Siffrorna är spisens värme, och B är kol. Varma köket har den snabba spisen och Kalla köket den långsamma.
-- **Gästbanan** i varje matsal har en startruta (●●) och ruta 1–7. En blixt är 1 stress, och pilen ut genom väggen betyder att gästen går.
+- **Gästbanan** i varje matsal har ruta 1–7. En blixt är 1 stress, och pilen ut genom väggen betyder att gästen går.
 - **Stationernas symboler** står ovanför prepytorna. Kuben med siffra är antal kuber per PREP, » betyder överspill och tallriken +1 betyder 1 ny disk per PREP.
 - **Låga och snöflinga** visar vilket kök som är Varma och vilket som är Kalla.
 
@@ -45,7 +47,7 @@ Planen har inga ord. Så här läses den:
 
 ![Orderkort](print/orderkort-1.png)
 
-Varje order har sina moment uppifrån och ner. PREP har en ruta per kub som behövs. COOK har ett värmeintervall och en ruta för kuben som visar att tillagningen är klar. Sist kommer SERVE. En vanlig order har en prick och enkel ram, en stor har två prickar och dubbel ram.
+Varje order har sina moment uppifrån och ner. PREP har en ruta per kub som behövs. COOK har ett värmeintervall och en ruta för kuben som visar att tillagningen är gjord. Sist kommer SERVE. En vanlig order har en prick och enkel ram, en stor har två prickar och dubbel ram. Ett timglas längst ner betyder att gästen får en tålamodsmarkör när ordern kommer in. Varje stor order har ett timglas.
 
 ## Förberedelser
 
@@ -84,7 +86,7 @@ En markör på ett kort ändrar kortet så här:
 
 När sista fasen är slut spelas rundorna 1–12 upp en i taget. Varje runda har fem steg:
 
-1. **Nya ordrar.** Har en order sin runda nu läggs huvudmarkören på prepytan i rummet där orderkortet ligger. Gästmarkören läggs på gästbanan i gästens matsal: på ruta 1 för en vanlig order och på startrutan för en stor.
+1. **Nya ordrar.** Har en order sin runda nu läggs huvudmarkören på prepytan i rummet där orderkortet ligger. Gästmarkören läggs på ruta 1 på gästbanan i gästens matsal, med en tålamodsmarkör för varje timglas på orderkortet.
 2. **Handlingar.** Varje spelare gör handlingen på sitt kort för rundan, i spelordning.
 3. **Spisarna.** Varje order på en spis flyttar ett steg.
 4. **Gästerna.** Varje gästmarkör flyttar ett steg.
@@ -93,7 +95,7 @@ När sista fasen är slut spelas rundorna 1–12 upp en i taget. Varje runda har
 ### Ordrar
 
 - En order *är i* ett rum när huvudmarkören ligger på en yta som hör till rummet. En order i luckan är alltså i både köket och matsalen.
-- Ett moment är orderns *nästa moment* när alla moment före det på kortet är klara.
+- Ett moment är *gjort* när det har alla sina kuber. Orderns *nästa moment* är det första som inte är gjort.
 - Kan en handling välja mellan flera ordrar väljs den med lägst nummer. En ordermarkör på kortet väljer i stället den ordern, om den går att välja.
 - **Fullt med ordrar:** ska en order läggas på en yta där alla platser har ordrar läggs den där ändå, som en extra order. Det kostar 1 stress.
 
@@ -101,8 +103,8 @@ När sista fasen är slut spelas rundorna 1–12 upp en i taget. Varje runda har
 
 Välj en order i rummet vars nästa moment är prep. En order på spisen går att välja bara om dess tillagning är klar. Finns ingen händer inget.
 
-1. Flytta ordern till rummets prepyta.
-2. Lägg kuber på momentet: 3 i Kalla köket, 2 i Varma köket och 1 i matsalarna. Lägg aldrig fler än momentet behöver. När momentet har alla sina kuber är det klart.
+1. Flytta ordern till rummets prepyta. Lyfts den av spisen läggs först en kub på tillagningen.
+2. Lägg kuber på momentet: 3 i Kalla köket, 2 i Varma köket och 1 i matsalarna. Lägg aldrig fler än momentet behöver. När momentet har alla sina kuber är det gjort.
 3. Bara i Kalla köket: kuber som blir över går till nästa order i rummet som går att välja, på samma sätt.
 4. I Kalla köket och i matsalarna: lägg 1 ny disk i rummet.
 
@@ -110,12 +112,12 @@ Välj en order i rummet vars nästa moment är prep. En order på spisen går at
 
 Välj en order i rummet som något av följande gäller för, och gör det som står:
 
-- **Klar på spisen:** lyft av ordern. Är nästa moment prep läggs den på prepytan. Är det en ny tillagning läggs den på spisens första ruta. Är det servering görs det som står för servering nedan.
+- **Klar på spisen:** lyft av ordern och lägg en kub på tillagningen. Är nästa moment prep läggs den på prepytan. Är det en ny tillagning läggs den på spisens första ruta. Är det servering görs det som står för servering nedan.
 - **Ska tillagas:** ordern ligger på prepytan i ett kök, nästa moment är tillagning och en platta är ledig. Lägg ordern på spisens första ruta.
 - **Ska serveras och gästen sitter här:** ställ ordern på bordet. Står det disk där flyttas den disken som ny disk i matsalen, och det kostar 1 stress. Vänd sedan huvudmarkören och gästmarkören, som nu är två disk i en stapel på bordet. Lägg orderkortet bland de serverade.
 - **Ska serveras och gästen sitter någon annanstans:** flytta ordern en serveringsyta mot gästen. Från ett kök går den till luckan på samma sida och från en matsal till bardisken. En order som redan ligger på den ytan går inte att välja.
 
-Finns ingen sådan order och du står i en matsal lugnar du gästen med lägst nummer där: lägg en lugnmarkör på gästmarkören. Annars händer inget.
+Finns ingen sådan order och du står i en matsal lugnar du gästen med lägst nummer där: lägg en tålamodsmarkör på gästmarkören. Annars händer inget.
 
 Med en ordermarkör på kortet går det också att välja en order på spisen som inte är klar. Den flyttas till prepytan utan kub.
 
@@ -141,13 +143,14 @@ Borttagen disk går tillbaka: lösa diskbrickor till förrådet och markörer ti
 
 - Varje kök har två plattor, en per bana. En order på spisen ligger på en ruta på en av banorna.
 - I steg 3 flyttar varje order på en spis ett steg på sin bana.
-- När ordern når en ruta inom sitt intervall läggs en kub på tillagningen, och den är klar. Läggs ordern på en ruta som redan är inom intervallet är den klar direkt.
+- En order på spisen är *klar* när den står på en ruta inom sitt intervall eller högre. Då går den att lyfta av.
+- Kuben på tillagningen läggs först när ordern lyfts av spisen. Den betyder att tillagningen är gjord, även om maten blev vidbränd. Så länge en order står på spisen är det alltså dess första tillagning utan kub som pågår.
 - Passerar ordern sitt intervall är den vidbränd: 1 stress i rummet. Den kan fortfarande lyftas av och serveras.
 - Når ordern B är den förstörd: 2 stress i rummet. Vänd huvudmarkören och lägg den som ny disk i rummet. Ta bort gästmarkören och lägg orderkortet åt sidan.
 
 ### Gästerna
 
-- I steg 4 flyttar varje gästmarkör ett steg. En gästmarkör med lugnmarkör står still i stället, och lugnmarkören tas bort.
+- I steg 4 flyttar varje gästmarkör ett steg. En gästmarkör med tålamodsmarkörer står still i stället, och en av tålamodsmarkörerna tas bort.
 - Ruta 5 och 6 ger 1 stress var i gästens matsal.
 - På ruta 7 går gästen: 2 stress i gästens matsal. Ta bort gästmarkören och lägg orderkortet åt sidan. Vänd huvudmarkören och lägg den som ny disk i rummet där den låg.
 - En order som inte är serverad efter runda 12 ger ingen stress.
@@ -165,11 +168,11 @@ Klarar sig laget genom runda 12 är servicen klarad. Räkna gärna antalet serve
 ### Förflyttning och bärande
 
 - MOVE tar dig till ett grannrum. En vågrät förflyttning byter sida, mellan röd och blå. En lodrät byter mellan kök och matsal.
-- **MOVE med ordermarkör:** ordern ska vara i rummet du lämnar. Ta med den och lägg den i det nya rummet:
-  - Om nästa moment är prep läggs den på prepytan.
-  - Om nästa moment är tillagning läggs den på spisens första ruta om en platta är ledig, och annars på prepytan.
-  - Om ordern står på spisen och inte är klar läggs den på en ledig platta, på rutan med den högsta siffran som inte är högre än den den lämnade. Finns ingen sådan siffra läggs den på första rutan. Exempel: från 5 i Varma köket hamnar den på 4 i Kalla köket. Finns ingen ledig platta, eller ingen spis, läggs den på prepytan, och tillagningen börjar om.
-  - Om nästa moment är servering serveras den om gästen sitter i det nya rummet, och annars läggs den på serveringsytan närmast gästen.
+- **MOVE med ordermarkör:** ordern ska vara i rummet du lämnar. Står den på spisen och är klar läggs först en kub på tillagningen. Ta sedan med ordern och lägg den i det nya rummet:
+  - Står ordern på spisen och är inte klar fortsätter tillagningen. Ordern läggs på en ledig platta, på rutan med den högsta siffran som inte är högre än den den lämnade, eller på första rutan om ingen siffra är så låg. Exempel: från 5 i Varma köket hamnar den på 4 i Kalla köket. Finns ingen ledig platta, eller ingen spis, läggs den på prepytan, och tillagningen börjar om.
+  - Är nästa moment prep läggs den på prepytan.
+  - Är nästa moment tillagning läggs den på spisens första ruta om en platta är ledig, och annars på prepytan.
+  - Är nästa moment servering serveras den om gästen sitter i det nya rummet, och annars läggs den på serveringsytan närmast gästen.
 - **MOVE med diskmarkör:** ta med upp till 6 disk, två staplar, från rummets platser, mest störande först. Lägg dem som ny disk i det nya rummet.
 - **Krockar:** två förflyttningar i samma runda krockar om de går mellan samma två rum, åt vilket håll som helst. Varje spelare i krocken som bär något får 1 stress direkt. Den som inte bär något krockar aldrig.
 
@@ -198,7 +201,7 @@ En vanlig order är 1 poäng och en stor 2. Börja med *First service (easy)*.
 
 ## Servicespelaren
 
-![Servicespelaren](bilder/servicespelaren.png)
+![Servicespelaren](images/service-player.png)
 
 Servicespelaren kräver Python 3. Starta den med `python3 server.py` i repots översta mapp och öppna <http://localhost:8000/kitchen.htm>. Välj antal spelare och service:
 

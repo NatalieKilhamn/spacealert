@@ -2,7 +2,7 @@
 
 Matsalarna ligger i norr och köken i söder. Röda sidan är till vänster, blå till höger.
 
-Kör: python3 make_board.py  ->  spelplan.svg
+Kör: python3 make_board.py  ->  board.svg
 Alla platser för markörer är cirklar med diameter 22 mm (för markörer på ca 20 mm).
 """
 import math
@@ -168,17 +168,13 @@ def counter_v(cx, cy):
     spot(cx, cy - 14); spot(cx, cy + 14)
 
 def guest_track(x_start, y, direction):
-    """Gästbana: startruta (stora ordrar) och ruta 1-7. direction = +1 åt höger, -1 åt vänster."""
+    """Gästbana: ruta 1-7. Alla gäster börjar på ruta 1; extra tålamod står på orderkortet.
+    x_start = där ruta 1 hade sin startruta förut, direction = +1 åt höger, -1 åt vänster."""
     step = 24.5
-    for k in range(8):
+    for k in range(1, 8):
         x = x_start + direction * k * step
         rect(x, y, 22, 22, rx=1.5, sw=0.5 if k not in (5, 6, 7) else 0.9)
-        if k == 0:
-            pip(x + 2.8, y + 2.8); pip(x + 5.6, y + 2.8)
-        else:
-            text(x + 19.2, y + 5.2, str(k), size=4.2, anchor='end')
-        if k == 1:
-            pip(x + 2.8, y + 2.8)
+        text(x + 19.2, y + 5.2, str(k), size=4.2, anchor='end')
         if k in (5, 6):
             stress(x + 16.5, y + 15.6, 1.0)
         if k == 7:
@@ -271,5 +267,5 @@ counter_v(210, 82)      # bardisken
 add('</g>')
 
 add('</svg>')
-open('spelplan.svg', 'w').write('\n'.join(out))
-print('spelplan.svg')
+open('board.svg', 'w').write('\n'.join(out))
+print('board.svg')

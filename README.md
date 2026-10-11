@@ -67,8 +67,9 @@ https://github.com/nibuen/SpaceAlertMissionGenerator (MIT licensed), file
 ## Kitchen Alert
 
 The same player also runs services for Kitchen Alert, a cooperative restaurant mod of
-Space Alert. The rules (in Swedish), the board and the order cards are in
-[`kitchenalert/`](kitchenalert/regler.md); the printable files are in `kitchenalert/print/`.
+Space Alert. The rules are in [`kitchenalert/rules.md`](kitchenalert/rules.md), in Swedish in
+[`kitchenalert/regler.md`](kitchenalert/regler.md); the board and the order cards are in
+`kitchenalert/print/`.
 Start the server as above and open
 http://localhost:8000/kitchen.htm
 
@@ -86,8 +87,9 @@ of the board and blue the right. Draw the top card of the regular or large order
 
 Everything below is in `kitchenalert/`:
 
-- `regler.md`: the rules, in Swedish.
-- `print/`: the board and the order cards as SVG and PDF, and the scripts that draw them.
+- `rules.md` and `regler.md`: the rules in English and Swedish.
+- `print/`: the board and the order cards (English and Swedish) as SVG and PDF, and the scripts
+  that draw them.
 - `kitchenalert.py` generates services on top of the Space Alert generator. A normal service
   for four players has 7 order points: 5 regular orders (1 point) and 1 large order (2 points),
   one per round on T+1 to T+8. Easy has 6 points, hard 8, and five players get one point more.

@@ -29,14 +29,8 @@
 <line x1="370.00" y1="148.50" x2="400.00" y2="148.50" stroke="#000" stroke-width="0.3" stroke-linecap="round" stroke-dasharray="1.5 1.5"/>
 </g>
 <g id="rod-matsal">
-<rect x="182.50" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />
-<circle cx="185.30" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
-<circle cx="188.10" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
-<line x1="182.20" y1="23.00" x2="180.30" y2="23.00" stroke="#000" stroke-width="0.35" stroke-linecap="round" />
-<polygon points="180.30,23.00 181.47,22.37 181.47,23.63" fill="#000"/>
 <rect x="158.00" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />
 <text x="177.20" y="17.20" font-size="4.2" font-weight="bold" text-anchor="end" fill="#000" font-family="Helvetica, Arial, sans-serif">1</text>
-<circle cx="160.80" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
 <line x1="157.70" y1="23.00" x2="155.80" y2="23.00" stroke="#000" stroke-width="0.35" stroke-linecap="round" />
 <polygon points="155.80,23.00 156.97,22.37 156.97,23.63" fill="#000"/>
 <rect x="133.50" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />
@@ -88,14 +82,8 @@
 <circle cx="160.00" cy="80.00" r="11" fill="#fff" stroke="#000" stroke-width="0.5" />
 </g>
 <g id="bla-matsal">
-<rect x="215.50" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />
-<circle cx="218.30" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
-<circle cx="221.10" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
-<line x1="237.80" y1="23.00" x2="239.70" y2="23.00" stroke="#000" stroke-width="0.35" stroke-linecap="round" />
-<polygon points="239.70,23.00 238.53,22.37 238.53,23.63" fill="#000"/>
 <rect x="240.00" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />
 <text x="259.20" y="17.20" font-size="4.2" font-weight="bold" text-anchor="end" fill="#000" font-family="Helvetica, Arial, sans-serif">1</text>
-<circle cx="242.80" cy="14.80" r="1.25" fill="#000" stroke="#000" stroke-width="0" />
 <line x1="262.30" y1="23.00" x2="264.20" y2="23.00" stroke="#000" stroke-width="0.35" stroke-linecap="round" />
 <polygon points="264.20,23.00 263.03,22.37 263.03,23.63" fill="#000"/>
 <rect x="264.50" y="12.00" width="22.00" height="22.00" rx="1.5" fill="#fff" stroke="#000" stroke-width="0.5" />

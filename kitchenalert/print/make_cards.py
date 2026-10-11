@@ -2,32 +2,55 @@
 
 Korten är 59 x 94 mm, så att nio får plats på ett A4 och kan läggas framför ett hotkort
 från Space Alert (61 x 103 mm) i samma plastficka.
-Kör: python3 make_cards.py  ->  orderkort-1.svg, orderkort-2.svg
+Kör: python3 make_cards.py  ->  orderkort-1/2.svg (svenska) och order-cards-1/2.svg (engelska)
 """
 CW, CH = 59, 94
 F = 'font-family="Helvetica, Arial, sans-serif"'
 
-# namn, storlek (V = vanlig, S = stor), moment: ('P', kuber) eller ('C', min, max)
+# (svenskt namn, engelskt namn), storlek (V = vanlig, S = stor), moment: ('P', kuber) eller
+# ('C', min, max), och antal timglas: varje timglas ger gästen en tålamodsmarkör när ordern kommer in.
 ORDERS = [
-    ('Dryck', 'V', [('P', 2)]), ('Sallad', 'V', [('P', 3)]), ('Smörgås', 'V', [('P', 2)]),
-    ('Varmrätt', 'V', [('P', 3), ('C', 2, 5)]), ('Pasta', 'V', [('P', 2), ('C', 2, 5)]),
-    ('Fisk', 'V', [('P', 3), ('C', 2, 5)]), ('Hamburgare', 'V', [('P', 2), ('C', 2, 5)]),
-    ('Pannkakor', 'V', [('C', 2, 5), ('P', 2)]), ('Omelett', 'V', [('P', 2), ('C', 1, 3)]),
-    ('Wok', 'V', [('P', 3), ('C', 1, 3)]), ('Gryta', 'V', [('P', 2), ('C', 4, 7)]),
-    ('Soppa', 'V', [('P', 2), ('C', 4, 7)]),
-    ('Stek med sås', 'S', [('P', 3), ('C', 2, 5), ('P', 2)]), ('Långkok', 'S', [('P', 4), ('C', 5, 9)]),
-    ('Två rätter', 'S', [('P', 2), ('C', 1, 3), ('C', 4, 7)]), ('Festbricka', 'S', [('P', 6)]),
-    ('Helstekt fisk', 'S', [('P', 4), ('C', 2, 5)]), ('Pizza', 'S', [('P', 3), ('C', 5, 9)]),
+    (('Dryck', 'Drink'), 'V', [('P', 2)], 0),
+    (('Sallad', 'Salad'), 'V', [('P', 3)], 0),
+    (('Smörgås', 'Sandwich'), 'V', [('P', 2)], 0),
+    (('Varmrätt', 'Main course'), 'V', [('P', 3), ('C', 2, 5)], 0),
+    (('Pasta', 'Pasta'), 'V', [('P', 2), ('C', 2, 5)], 0),
+    (('Fisk', 'Fish'), 'V', [('P', 3), ('C', 2, 5)], 0),
+    (('Hamburgare', 'Burger'), 'V', [('P', 2), ('C', 2, 5)], 0),
+    (('Pannkakor', 'Pancakes'), 'V', [('C', 2, 5), ('P', 2)], 0),
+    (('Omelett', 'Omelette'), 'V', [('P', 2), ('C', 1, 3)], 0),
+    (('Wok', 'Stir-fry'), 'V', [('P', 3), ('C', 1, 3)], 0),
+    (('Gryta', 'Stew'), 'V', [('P', 2), ('C', 4, 7)], 0),
+    (('Soppa', 'Soup'), 'V', [('P', 2), ('C', 4, 7)], 0),
+    (('Stek med sås', 'Steak & sauce'), 'S', [('P', 3), ('C', 2, 5), ('P', 2)], 1),
+    (('Långkok', 'Slow roast'), 'S', [('P', 4), ('C', 5, 9)], 1),
+    (('Två rätter', 'Two courses'), 'S', [('P', 2), ('C', 1, 3), ('C', 4, 7)], 1),
+    (('Festbricka', 'Party platter'), 'S', [('P', 6)], 1),
+    (('Helstekt fisk', 'Whole fish'), 'S', [('P', 4), ('C', 2, 5)], 1),
+    (('Pizza', 'Pizza'), 'S', [('P', 3), ('C', 5, 9)], 1),
 ]
 
-def card(x, y, name, size, phases):
-    o = [f'<g id="{name.lower().replace(" ", "-")}">']
+def hourglass(x, y, s=1.25):
+    """Timglas: gästen får en tålamodsmarkör. (x, y) = mitten."""
+    o = []
+    for dy in (-3, 3):
+        o.append(f'<line x1="{x - 2.5 * s:.2f}" y1="{y + dy * s:.2f}" x2="{x + 2.5 * s:.2f}" y2="{y + dy * s:.2f}" stroke="#000" stroke-width="0.6" stroke-linecap="round"/>')
+    pts = [(-1.9, -3), (1.9, -3), (0.3, 0), (1.9, 3), (-1.9, 3), (-0.3, 0)]
+    o.append('<polygon points="' + ' '.join(f'{x + a * s:.2f},{y + b * s:.2f}' for a, b in pts) + '" fill="#fff" stroke="#000" stroke-width="0.45" stroke-linejoin="round"/>')
+    sand = [(-1.3, 2.6), (1.3, 2.6), (0, 1.1)]
+    o.append('<polygon points="' + ' '.join(f'{x + a * s:.2f},{y + b * s:.2f}' for a, b in sand) + '" fill="#000"/>')
+    return o
+
+def card(x, y, name, size, phases, patience):
+    o = [f'<g id="{name.lower().replace(" ", "-").replace("&", "och")}">']
     a = o.append
     a(f'<rect x="{x}" y="{y}" width="{CW}" height="{CH}" fill="#fff" stroke="#000" stroke-width="0.2"/>')
     insets = (2.5, 3.7) if size == 'S' else (2.5,)
     for i in insets:
         a(f'<rect x="{x + i}" y="{y + i}" width="{CW - 2 * i}" height="{CH - 2 * i}" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>')
-    a(f'<text x="{x + 6}" y="{y + 12}" font-size="5.4" font-weight="bold" {F}>{name}</text>')
+    size_pt = min(5.4, 38.0 / (0.6 * len(name)))      # långa namn krymper så att de inte når prickarna
+    shown = name.replace('&', '&amp;')
+    a(f'<text x="{x + 6}" y="{y + 12}" font-size="{size_pt:.2f}" font-weight="bold" {F}>{shown}</text>')
     pips = (47.6, 51.6) if size == 'S' else (51.6,)
     for px in pips:
         a(f'<circle cx="{x + px}" cy="{y + 10.3}" r="1.5" fill="#000"/>')
@@ -51,17 +74,19 @@ def card(x, y, name, size, phases):
             a(f'<text x="{x + 6}" y="{cy + 3.2}" font-size="3.8" font-weight="bold" {F}>SERVE</text>')
             a(f'<circle cx="{x + 25.5}" cy="{cy + 1.9}" r="2.6" fill="#fff" stroke="#000" stroke-width="0.35"/>')
             a(f'<circle cx="{x + 25.5}" cy="{cy + 1.9}" r="1.4" fill="none" stroke="#000" stroke-width="0.35"/>')
+    for i in range(patience):
+        o += hourglass(x + CW - 9 - i * 7.5, y + CH - 10.5)
     a('</g>')
     return o
 
-def sheet(orders, fname):
+def sheet(orders, fname, lang):
     W, H = 210, 297
     x0, y0 = (W - 3 * CW) / 2, (H - 3 * CH) / 2
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}mm" height="{H}mm" viewBox="0 0 {W} {H}">',
          f'<rect width="{W}" height="{H}" fill="#fff"/>']
-    for i, (name, size, ph) in enumerate(orders):
+    for i, (names, size, ph, patience) in enumerate(orders):
         r, c = divmod(i, 3)
-        o += card(x0 + c * CW, y0 + r * CH, name, size, ph)
+        o += card(x0 + c * CW, y0 + r * CH, names[lang], size, ph, patience)
     o.append('<g id="skarmarken" stroke="#000" stroke-width="0.2">')
     for i in range(4):
         x = x0 + i * CW
@@ -72,5 +97,6 @@ def sheet(orders, fname):
     open(fname, 'w').write('\n'.join(o))
     print(fname)
 
-sheet(ORDERS[:9], 'orderkort-1.svg')
-sheet(ORDERS[9:], 'orderkort-2.svg')
+for lang, base in ((0, 'orderkort'), (1, 'order-cards')):
+    sheet(ORDERS[:9], f'{base}-1.svg', lang)
+    sheet(ORDERS[9:], f'{base}-2.svg', lang)

@@ -3,7 +3,7 @@
 <g id="dryck">
 <rect x="16.5" y="7.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="19.0" y="10.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="22.5" y="19.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Dryck</text>
+<text x="22.5" y="19.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Dryck</text>
 <circle cx="68.1" cy="17.8" r="1.5" fill="#000"/>
 <line x1="22.0" y1="23.5" x2="70.0" y2="23.5" stroke="#000" stroke-width="0.3"/>
 <text x="22.5" y="31.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -16,7 +16,7 @@
 <g id="sallad">
 <rect x="75.5" y="7.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="78.0" y="10.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="81.5" y="19.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Sallad</text>
+<text x="81.5" y="19.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Sallad</text>
 <circle cx="127.1" cy="17.8" r="1.5" fill="#000"/>
 <line x1="81.0" y1="23.5" x2="129.0" y2="23.5" stroke="#000" stroke-width="0.3"/>
 <text x="81.5" y="31.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -30,7 +30,7 @@
 <g id="smörgås">
 <rect x="134.5" y="7.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="137.0" y="10.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="140.5" y="19.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Smörgås</text>
+<text x="140.5" y="19.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Smörgås</text>
 <circle cx="186.1" cy="17.8" r="1.5" fill="#000"/>
 <line x1="140.0" y1="23.5" x2="188.0" y2="23.5" stroke="#000" stroke-width="0.3"/>
 <text x="140.5" y="31.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -43,7 +43,7 @@
 <g id="varmrätt">
 <rect x="16.5" y="101.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="19.0" y="104.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="22.5" y="113.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Varmrätt</text>
+<text x="22.5" y="113.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Varmrätt</text>
 <circle cx="68.1" cy="111.8" r="1.5" fill="#000"/>
 <line x1="22.0" y1="117.5" x2="70.0" y2="117.5" stroke="#000" stroke-width="0.3"/>
 <text x="22.5" y="125.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -60,7 +60,7 @@
 <g id="pasta">
 <rect x="75.5" y="101.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="78.0" y="104.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="81.5" y="113.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Pasta</text>
+<text x="81.5" y="113.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Pasta</text>
 <circle cx="127.1" cy="111.8" r="1.5" fill="#000"/>
 <line x1="81.0" y1="117.5" x2="129.0" y2="117.5" stroke="#000" stroke-width="0.3"/>
 <text x="81.5" y="125.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -76,7 +76,7 @@
 <g id="fisk">
 <rect x="134.5" y="101.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="137.0" y="104.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="140.5" y="113.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Fisk</text>
+<text x="140.5" y="113.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Fisk</text>
 <circle cx="186.1" cy="111.8" r="1.5" fill="#000"/>
 <line x1="140.0" y1="117.5" x2="188.0" y2="117.5" stroke="#000" stroke-width="0.3"/>
 <text x="140.5" y="125.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -93,7 +93,7 @@
 <g id="hamburgare">
 <rect x="16.5" y="195.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="19.0" y="198.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="22.5" y="207.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Hamburgare</text>
+<text x="22.5" y="207.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Hamburgare</text>
 <circle cx="68.1" cy="205.8" r="1.5" fill="#000"/>
 <line x1="22.0" y1="211.5" x2="70.0" y2="211.5" stroke="#000" stroke-width="0.3"/>
 <text x="22.5" y="219.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>
@@ -109,7 +109,7 @@
 <g id="pannkakor">
 <rect x="75.5" y="195.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="78.0" y="198.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="81.5" y="207.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Pannkakor</text>
+<text x="81.5" y="207.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Pannkakor</text>
 <circle cx="127.1" cy="205.8" r="1.5" fill="#000"/>
 <line x1="81.0" y1="211.5" x2="129.0" y2="211.5" stroke="#000" stroke-width="0.3"/>
 <text x="81.5" y="219.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">COOK</text>
@@ -125,7 +125,7 @@
 <g id="omelett">
 <rect x="134.5" y="195.5" width="59" height="94" fill="#fff" stroke="#000" stroke-width="0.2"/>
 <rect x="137.0" y="198.0" width="54.0" height="89.0" rx="2" fill="none" stroke="#000" stroke-width="0.35"/>
-<text x="140.5" y="207.5" font-size="5.4" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Omelett</text>
+<text x="140.5" y="207.5" font-size="5.40" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Omelett</text>
 <circle cx="186.1" cy="205.8" r="1.5" fill="#000"/>
 <line x1="140.0" y1="211.5" x2="188.0" y2="211.5" stroke="#000" stroke-width="0.3"/>
 <text x="140.5" y="219.7" font-size="3.8" font-weight="bold" font-family="Helvetica, Arial, sans-serif">PREP</text>

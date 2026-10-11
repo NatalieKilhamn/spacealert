@@ -84,7 +84,7 @@ Sorry, but your browser doesn't seem to support the HTML5 canvas element.
 </div>
 
 <script type="text/javascript">
-// The player looks audio up by these ids; in Kitchen Alert they point to audio/ka/.
+// The player looks audio up by these ids; in Kitchen Alert they point to kitchenalert/audio/.
 var audios = {
     "begin": "begin", "repeat": "repeat", "noise": "fan", "alarm5": "tick",
     "alert": "bell", "incoming_data": "delivery", "data_transfer": "handover",
@@ -97,7 +97,7 @@ var audios = {
 for (var t = 1; t <= 8; t++)
     audios["time" + t] = "time" + t;
 for (var id in audios)
-    document.writeln('<audio id="audio-' + id + '" preload="auto"><source src="audio/ka/' + audios[id] + '.mp3" type="audio/mpeg"></audio>');
+    document.writeln('<audio id="audio-' + id + '" preload="auto"><source src="kitchen-audio/' + audios[id] + '.mp3" type="audio/mpeg"></audio>');
 </script>
 
 <div id="endmenu" hidden>

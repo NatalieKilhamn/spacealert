@@ -11,8 +11,10 @@
 # This program is free software: you can redistribute it and/or modify it under the terms of
 # the GNU General Public License as published by the Free Software Foundation, either version 3
 # of the License, or (at your option) any later version.
-import itertools, random
+import itertools, os, random, sys
 
+# The Space Alert generator lives in the sibling folder spacealert/.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'spacealert'))
 import spacealert as sa
 from spacealert import (Event, Phase, IncomingData, DataTransfer, CommunicationsDown,
                         InvalidMissionError, MAX_ITERATIONS, parseTime)

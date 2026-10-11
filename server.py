@@ -19,12 +19,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import io, http.server, os
+import io, http.server, os, sys
 import json
+import posixpath
 import urllib.parse
+
+# One server for both games. Each game keeps its own files in its folder; the browser
+# player that both use is in player/.
+ROOT = os.path.dirname(os.path.abspath(__file__))
+SPACE_ALERT = os.path.join(ROOT, 'spacealert')
+KITCHEN_ALERT = os.path.join(ROOT, 'kitchenalert')
+sys.path[:0] = [SPACE_ALERT, KITCHEN_ALERT]
+
 import spacealert
 import kitchenalert
 import kitchen_scripts
+
+# URL prefix -> folder (or file) it is served from
+STATIC_FILES = [
+    ('/player.js', os.path.join(ROOT, 'player', 'player.js')),
+    ('/images/', os.path.join(ROOT, 'player', 'images')),
+    ('/audio/', os.path.join(SPACE_ALERT, 'audio')),
+    ('/kitchen.js', os.path.join(KITCHEN_ALERT, 'kitchen.js')),
+    ('/kitchen-audio/', os.path.join(KITCHEN_ALERT, 'audio')),
+]
 
 htmlParts = {}
 
@@ -62,14 +80,14 @@ KITCHEN_SERVICES = [('generate-normal', 'New service'),
                     ('generate-hard', 'New service, hard')] + list(kitchen_scripts.SERVICES)
 
 def run(port=8000):
-    with open('player.htm', 'r') as htmlFile:
+    with open(os.path.join(SPACE_ALERT, 'player.htm'), 'r') as htmlFile:
         html = htmlFile.read()
         pos1 = html.index("/* BEGIN */")
         pos2 = html.index("/* END */", pos1)
         htmlParts['header'] = html[0:pos1].encode('utf-8')
         htmlParts['body'] = html[pos2+len("/* END */"):].encode('utf-8')
         del html
-    with open('kitchen-player.htm', 'r') as htmlFile:
+    with open(os.path.join(KITCHEN_ALERT, 'kitchen-player.htm'), 'r') as htmlFile:
         html = htmlFile.read()
         pos1 = html.index("/* BEGIN */")
         pos2 = html.index("/* END */", pos1)
@@ -117,13 +135,29 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
     def isNormalFile(self, path):
-        return path.startswith('/audio/') or path.startswith('/images/') \
-                or path in ['/player.js', '/kitchen.js']
+        return self.staticPath(path) is not None
+
+    def staticPath(self, path):
+        """The file on disk for a static URL path, or None."""
+        path = posixpath.normpath(urllib.parse.unquote(path))
+        for prefix, target in STATIC_FILES:
+            if prefix.endswith('/'):
+                if path.startswith(prefix):
+                    parts = [p for p in path[len(prefix):].split('/') if p]
+                    if any(p in ('.', '..') for p in parts):
+                        return None
+                    return os.path.join(target, *parts)
+            elif path == prefix:
+                return target
+        return None
+
+    def translate_path(self, path):
+        return self.staticPath(urllib.parse.urlparse(path).path) or os.path.join(ROOT, 'missing')
 
     def serveMenu(self, head=False):
         """Serve the main menu, injecting the mission catalogue so that the page
         and the server can never disagree about which missions exist."""
-        with open('index.htm', 'r') as f:
+        with open(os.path.join(SPACE_ALERT, 'index.htm'), 'r') as f:
             html = f.read()
         html = html.replace('/* CATALOGUE */', json.dumps(MISSION_TYPES))
         data = html.encode('utf-8')
@@ -135,7 +169,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(data)
 
     def serveKitchenMenu(self, head=False):
-        with open('kitchen.htm', 'r') as f:
+        with open(os.path.join(KITCHEN_ALERT, 'kitchen.htm'), 'r') as f:
             html = f.read()
         html = html.replace('/* SERVICES */', json.dumps(KITCHEN_SERVICES))
         data = html.encode('utf-8')

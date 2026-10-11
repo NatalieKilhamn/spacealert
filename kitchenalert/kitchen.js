@@ -2,7 +2,7 @@
  * Kitchen Alert: the parts of the player that differ from Space Alert.
  * Loaded after player.js by kitchen-player.htm, and overrides events and widgets by name.
  * The audio elements keep the Space Alert ids (alert, incoming_data, ...) but point to
- * the Kitchen Alert recordings in audio/ka/, so the AudioManager works unchanged.
+ * the Kitchen Alert recordings in kitchenalert/audio/, so the AudioManager works unchanged.
  *
  * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software Foundation,

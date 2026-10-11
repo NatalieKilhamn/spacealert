@@ -200,14 +200,14 @@ En vanlig order är 1 poäng och en stor 2. Börja med *First service (easy)*.
 
 ![Servicespelaren](bilder/servicespelaren.png)
 
-Servicespelaren ligger i mappen `spacealert/` i det här repot och kräver Python 3. Starta den med `python3 server.py` och öppna <http://localhost:8000/kitchen.htm>. Välj antal spelare och service:
+Servicespelaren kräver Python 3. Starta den med `python3 server.py` i repots översta mapp och öppna <http://localhost:8000/kitchen.htm>. Välj antal spelare och service:
 
 - *New service* slumpar en ny service.
 - De fasta servicarna, *First service*, *Service 1–3* och *Busy night*, är lika för alla grupper.
 
 Skärmen visar ordern med en eller två tallrikar, en planritning där gästens matsal lyser i sin färg, och rundan. Efter servicen visar *Show script* allt som ropades ut.
 
-Utan dator kan någon läsa en service högt. `python3 kitchenalert.py -p 4 -s normal` skriver ut en ny.
+Utan dator kan någon läsa en service högt. `python3 kitchenalert/kitchenalert.py -p 4 -s normal` skriver ut en ny.
 
 ## Varianter att testa
 

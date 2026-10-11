@@ -2,7 +2,7 @@
 """Build the English announcements for Kitchen Alert.
 
 The voices come from macOS text-to-speech (`say`), the bell, the ticking timer and the
-kitchen noise are synthesised here, and ffmpeg encodes everything to MP3 in audio/ka/.
+kitchen noise are synthesised here, and ffmpeg encodes everything to MP3 in audio/.
 Run this on a Mac with ffmpeg installed:
 
     python3 make_kitchen_audio.py [--voice Daniel] [--rate 175]
@@ -13,7 +13,7 @@ phase ends exactly seven seconds after the countdown clip starts, as in Space Al
 import argparse, math, os, random, struct, subprocess, tempfile, wave
 
 RATE = 22050
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audio', 'ka')
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audio')
 
 NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 ORDINALS = {1: 'First', 2: 'Second', 3: 'Third'}

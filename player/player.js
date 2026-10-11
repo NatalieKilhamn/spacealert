@@ -189,26 +189,36 @@ function MissionAnimator(events) {
 function AudioManager() {
     this.tracks = null;
     this.audio = null;
-    
+    // A "noise<seconds>" track plays the noise file for that many seconds. It is stopped by a
+    // timer: seeking to the end of the file does not work when the server cannot send byte
+    // ranges, and then the noise ran on until the next event.
+    this.noiseTimer = null;
+    this.noiseLeft = 0;     // milliseconds of noise left
+    this.noiseStarted = 0;  // when the running timer was started
+
     this.setTracks = function(tracks) {
         this.clear();
         this.tracks = tracks.slice(); // copy! array will be modified in next
         this.next();
     }
-    
+
     this.next = function() {
+        this.stopNoiseTimer();
+        this.noiseLeft = 0;
+        var that = this;
         if (this.tracks != null && this.tracks.length > 0) {
             var track = this.tracks.shift();
             if (track.substr(0, 5) != "noise") {
                 this.audio = document.getElementById("audio-"+track);
             }
             else {
-                var length = parseInt(track.substr(5));
+                // loop, in case the noise file is shorter than the noise should last
                 this.audio = document.getElementById("audio-noise");
-                var that = this;
-                setTimeout(function() { that.audio.currentTime=that.audio.duration }, length*1000);
+                this.audio.loop = true;
+                this.audio.currentTime = 0;
+                this.noiseLeft = parseInt(track.substr(5)) * 1000;
+                this.startNoiseTimer();
             }
-            var that=this;
             this.audio.onended = function() { that.next() };
             this.audio.play();
         }
@@ -218,18 +228,46 @@ function AudioManager() {
             this.audio.play();
         }
     }
-    
-    this.play = function() {
-        if (this.audio != null)
-            this.audio.play();
+
+    this.startNoiseTimer = function() {
+        var that = this, noise = this.audio;
+        this.noiseStarted = Date.now();
+        this.noiseTimer = setTimeout(function() {
+            that.noiseTimer = null;
+            if (that.audio === noise) {
+                noise.onended = null;
+                noise.pause();
+                noise.currentTime = 0;
+                that.next();
+            }
+        }, this.noiseLeft);
     }
-    
+
+    this.stopNoiseTimer = function() {
+        if (this.noiseTimer) {
+            clearTimeout(this.noiseTimer);
+            this.noiseTimer = null;
+            this.noiseLeft -= Date.now() - this.noiseStarted;
+        }
+    }
+
+    this.play = function() {
+        if (this.audio != null) {
+            this.audio.play();
+            if (this.noiseLeft > 0 && !this.noiseTimer)
+                this.startNoiseTimer();
+        }
+    }
+
     this.pause = function() {
         if (this.audio != null)
             this.audio.pause();
+        this.stopNoiseTimer();
     }
-    
+
     this.clear = function() {
+        this.stopNoiseTimer();
+        this.noiseLeft = 0;
         if (this.audio != null) {
             this.audio.pause();
             this.audio.onended = null;

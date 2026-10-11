@@ -23,6 +23,8 @@ import io, http.server, os
 import json
 import urllib.parse
 import spacealert
+import kitchenalert
+import kitchen_scripts
 
 htmlParts = {}
 
@@ -54,6 +56,11 @@ MISSION_TYPES = [
 MISSION_TYPES_BY_KEY = {t['key']: t for t in MISSION_TYPES}
 DEFAULT_TYPE = 'regular'
 
+# Kitchen Alert services in menu order: generated ones first, then the scripted ones.
+KITCHEN_SERVICES = [('generate-normal', 'New service'),
+                    ('generate-easy', 'New service, easy'),
+                    ('generate-hard', 'New service, hard')] + list(kitchen_scripts.SERVICES)
+
 def run(port=8000):
     with open('player.htm', 'r') as htmlFile:
         html = htmlFile.read()
@@ -61,6 +68,13 @@ def run(port=8000):
         pos2 = html.index("/* END */", pos1)
         htmlParts['header'] = html[0:pos1].encode('utf-8')
         htmlParts['body'] = html[pos2+len("/* END */"):].encode('utf-8')
+        del html
+    with open('kitchen-player.htm', 'r') as htmlFile:
+        html = htmlFile.read()
+        pos1 = html.index("/* BEGIN */")
+        pos2 = html.index("/* END */", pos1)
+        htmlParts['kitchenHeader'] = html[0:pos1].encode('utf-8')
+        htmlParts['kitchenBody'] = html[pos2+len("/* END */"):].encode('utf-8')
         del html
     
     server_address = ('', port)
@@ -72,6 +86,9 @@ def getJavaScript(event):
     def b(x):
         return "true" if x else "false"
     
+    if isinstance(event, kitchenalert.Order):
+        return 'new Order({}, {}, {}, "{}")'.format(event.start, event.turn, b(event.large),
+                                                    event.room.name.lower())
     if isinstance(event, spacealert.Alert):
         return 'new Alert({}, {}, {}, "{}")'.format(
                     event.start,
@@ -101,7 +118,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def isNormalFile(self, path):
         return path.startswith('/audio/') or path.startswith('/images/') \
-                or path in ['/player.js']
+                or path in ['/player.js', '/kitchen.js']
 
     def serveMenu(self, head=False):
         """Serve the main menu, injecting the mission catalogue so that the page
@@ -117,10 +134,25 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         if not head:
             self.wfile.write(data)
 
+    def serveKitchenMenu(self, head=False):
+        with open('kitchen.htm', 'r') as f:
+            html = f.read()
+        html = html.replace('/* SERVICES */', json.dumps(KITCHEN_SERVICES))
+        data = html.encode('utf-8')
+        self.send_response(200)
+        self.send_header("Content-type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        if not head:
+            self.wfile.write(data)
+
     def doHelper(self, head=True):
         url = urllib.parse.urlparse(self.path)
         print(self.path, url.path)
-        if url.path != '/player.htm':
+        if url.path == '/kitchen.htm':
+            self.serveKitchenMenu(head=head)
+            return False
+        if url.path not in ('/player.htm', '/service.htm'):
             if url.path == '/':
                 self.send_response(301)
                 self.send_header('Location','/index.htm')
@@ -189,12 +221,45 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 'mission': mission,
                 }
 
+    def serveService(self, url):
+        """Generate or load a Kitchen Alert service and serve the service player."""
+        p = {k: v[-1] for k, v in urllib.parse.parse_qs(url.query).items()}
+        players = 5 if p.get('players') == '5' else 4
+        service = p.get('service', 'generate-normal')
+        labels = dict(KITCHEN_SERVICES)
+        if service not in labels:
+            service = 'generate-normal'
+        try:
+            if service.startswith('generate-'):
+                mission = kitchenalert.makeService(players, service[len('generate-'):])
+            else:
+                mission = kitchenalert.loadScript(service, players)
+        except (RuntimeError, spacealert.InvalidMissionError) as e:
+            print(e)
+            self.send_error(500, "Service could not be generated")
+            return
+        name = '{}, {} players'.format(labels[service], players)
+        content = ',\n'.join(getJavaScript(e) for e in mission.events)
+
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(htmlParts['kitchenHeader'])
+        self.wfile.write('var missionName = {};\n\n'.format(json.dumps(name)).encode('utf-8'))
+        self.wfile.write(b"var events = [\n")
+        self.wfile.write(content.encode('utf-8'))
+        self.wfile.write(b"\n];\n\n")
+        self.wfile.write(htmlParts['kitchenBody'])
+
     def do_GET(self):
         if not self.doHelper(head=False):
             return
 
         # parse GET parameters
         url = urllib.parse.urlparse(self.path)
+        if url.path == '/service.htm':
+            self.serveService(url)
+            return
         params = self.parseGetParams(url)
         typeInfo = params['typeInfo']
 

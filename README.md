@@ -52,3 +52,37 @@ https://github.com/nibuen/SpaceAlertMissionGenerator (MIT licensed), file
 `ConstructedMissions.java`.
 
 ![Player screenshot](/alert.png?raw=true)
+
+
+## Kitchen Alert
+
+The same player also runs services for Kitchen Alert, a cooperative restaurant mod of
+Space Alert. The rules (in Swedish), the board and the order cards are in
+[`kitchenalert/`](kitchenalert/regler.md); the printable files are in `kitchenalert/print/`.
+Start the server as above and open
+http://localhost:8000/kitchen.htm
+
+A service works like a mission: 12 rounds in three phases. Instead of threats, orders are
+announced with the round they arrive, their size and the dining room where the guests sit,
+e.g. "Time T plus three. New order. Red dining room." As in Space Alert, red is the left side
+of the board and blue the right. Draw the top card of the regular or large order deck. Space Alert's other announcements have kitchen names:
+
+| Kitchen Alert | Space Alert | Effect |
+| --- | --- | --- |
+| Delivery | Incoming data | Each player may draw one card. |
+| Handover | Data transfer | Each player may give one card to another player before the beep. |
+| Rush hour | Communications down | No talking until "Rush is over". |
+| The kitchen closes | Operation ends | End of the third phase. |
+
+- `kitchenalert.py` generates services on top of the Space Alert generator. A normal service
+  for four players has 7 order points: 5 regular orders (1 point) and 1 large order (2 points),
+  one per round on T+1 to T+8. Easy has 6 points, hard 8, and five players get one point more.
+  Run `python3 kitchenalert.py -p 4 -s normal` to print a service, or add `--script` for the
+  format of `kitchen_scripts.py`.
+- `kitchen_scripts.py` has five fixed services, so that playtest groups can compare the same
+  service. Lines marked `5P` only apply with five players.
+- `kitchen.htm`, `kitchen-player.htm` and `kitchen.js` are the menu and player. `kitchen.js`
+  loads after `player.js` and replaces the events and widgets that differ.
+- `audio/ka/` holds the announcements, made with macOS text-to-speech by
+  `make_kitchen_audio.py` (needs ffmpeg). Change the wording or the voice there and run it again,
+  e.g. `python3 make_kitchen_audio.py --voice Daniel`.
